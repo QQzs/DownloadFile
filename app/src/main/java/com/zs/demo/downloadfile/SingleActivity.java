@@ -67,7 +67,7 @@ public class SingleActivity extends AppCompatActivity{
                 float progress = info.getProgress() * main_progress.getMax() / info.getTotal();
                 main_progress.setProgress((int) progress);
             }
-            
+
         }else if (DownloadInfo.DOWNLOAD_OVER.equals(info.getDownloadStatus())){
 
             main_progress.setProgress(main_progress.getMax());
