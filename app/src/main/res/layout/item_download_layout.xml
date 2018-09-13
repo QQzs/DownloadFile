@@ -31,11 +31,19 @@
                 android:layout_height="wrap_content"
                 android:text="下载"/>
             <Button
+                android:id="@+id/main_btn_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂停"
+                android:layout_marginLeft="20dp"/>
+
+            <Button
                 android:id="@+id/main_btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="取消"
                 android:layout_marginLeft="20dp"/>
+
         </LinearLayout>
 
 

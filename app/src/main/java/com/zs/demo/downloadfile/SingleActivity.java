@@ -28,7 +28,9 @@ public class SingleActivity extends AppCompatActivity{
 
     private ProgressBar main_progress;
     private Button main_btn_down;
+    private Button main_btn_pause;
     private Button main_btn_cancel;
+    private DownloadInfo downloadInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class SingleActivity extends AppCompatActivity{
         EventBus.getDefault().register(this);
         main_progress = findViewById(R.id.main_progress);
         main_btn_down = findViewById(R.id.main_btn_down);
+        main_btn_pause = findViewById(R.id.main_btn_pause);
         main_btn_cancel = findViewById(R.id.main_btn_cancel);
 
         main_btn_down.setOnClickListener(new View.OnClickListener() {
@@ -46,10 +49,17 @@ public class SingleActivity extends AppCompatActivity{
             }
         });
 
+        main_btn_pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DownloadManager.getInstance().pauseDownload(Constant.URL_1);
+            }
+        });
+
         main_btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DownloadManager.getInstance().cancel(Constant.URL_1);
+                DownloadManager.getInstance().cancelDownload(downloadInfo);
             }
         });
     }
@@ -60,7 +70,7 @@ public class SingleActivity extends AppCompatActivity{
             return;
         }
         if (DownloadInfo.DOWNLOAD.equals(info.getDownloadStatus())){
-
+            downloadInfo = info;
             if (info.getTotal() == 0){
                 main_progress.setProgress(0);
             }else{
@@ -72,8 +82,13 @@ public class SingleActivity extends AppCompatActivity{
 
             main_progress.setProgress(main_progress.getMax());
 
-        }else if (DownloadInfo.DOWNLOAD_WAIT.equals(info.getDownloadStatus())){
+        }else if (DownloadInfo.DOWNLOAD_PAUSE.equals(info.getDownloadStatus())){
 
+            Toast.makeText(this,"下载暂停",Toast.LENGTH_SHORT).show();
+
+        }else if (DownloadInfo.DOWNLOAD_CANCEL.equals(info.getDownloadStatus())){
+
+            main_progress.setProgress(0);
             Toast.makeText(this,"下载取消",Toast.LENGTH_SHORT).show();
 
         }else if (DownloadInfo.DOWNLOAD_ERROR.equals(info.getDownloadStatus())){

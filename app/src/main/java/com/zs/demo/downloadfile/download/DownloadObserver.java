@@ -36,11 +36,11 @@ public class DownloadObserver implements Observer<DownloadInfo> {
     public void onError(Throwable e) {
         Log.d("My_Log","onError");
         if (DownloadManager.getInstance().getDownloadUrl(downloadInfo.getUrl())){
-            DownloadManager.getInstance().cancel(downloadInfo.getUrl());
+            DownloadManager.getInstance().pauseDownload(downloadInfo.getUrl());
             downloadInfo.setDownloadStatus(DownloadInfo.DOWNLOAD_ERROR);
             EventBus.getDefault().post(downloadInfo);
         }else{
-            downloadInfo.setDownloadStatus(DownloadInfo.DOWNLOAD_WAIT);
+            downloadInfo.setDownloadStatus(DownloadInfo.DOWNLOAD_PAUSE);
             EventBus.getDefault().post(downloadInfo);
         }
 

@@ -20,8 +20,19 @@
         android:text="下载"
         app:layout_constraintTop_toBottomOf="@+id/main_progress"
         android:layout_marginTop="10dp"
-        app:layout_constraintRight_toLeftOf="@+id/main_btn_cancel"
+        app:layout_constraintRight_toLeftOf="@+id/main_btn_pause"
         android:layout_marginRight="20dp"/>
+
+    <Button
+        android:id="@+id/main_btn_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂停"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/main_btn_down"
+        app:layout_constraintRight_toLeftOf="@+id/main_btn_cancel"
+        android:layout_marginRight="10dp"/>
+
     <Button
         android:id="@+id/main_btn_cancel"
         android:layout_width="wrap_content"

@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SingleActivity"/>
-        <activity android:name=".ListActivity"/>
+        <activity android:name=".MultipleActivity"/>
     </application>
 
 </manifest>

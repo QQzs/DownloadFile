@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void multipleDownload(View view){
-        Intent intent = new Intent(this,ListActivity.class);
+        Intent intent = new Intent(this,MultipleActivity.class);
         startActivity(intent);
     }
 }

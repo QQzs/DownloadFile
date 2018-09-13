@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import com.zs.demo.downloadfile.adapter.DownloadAdapter;
 import com.zs.demo.downloadfile.download.DownloadInfo;
-import com.zs.demo.downloadfile.download.DownloadManager;
-import com.zs.demo.downloadfile.download.DownloadObserver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,7 +26,7 @@ import java.util.List;
  * About:
  * —————————————————————————————————————
  */
-public class ListActivity extends AppCompatActivity {
+public class MultipleActivity extends AppCompatActivity {
 
     private RecyclerView recycler_view;
     private DownloadAdapter mAdapter;
@@ -60,25 +58,16 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
-    public void download(String url){
-
-        DownloadManager.getInstance().download(url, new DownloadObserver());
-
-    }
-
-    public void cancelDownload(String url){
-
-        DownloadManager.getInstance().cancel(url);
-
-    }
-
     @Subscribe (threadMode = ThreadMode.MAIN)
     public void update(DownloadInfo info){
         if (DownloadInfo.DOWNLOAD.equals(info.getDownloadStatus())){
             mAdapter.updateProgress(info);
         }else if (DownloadInfo.DOWNLOAD_OVER.equals(info.getDownloadStatus())){
-            mAdapter.updateStatus(info);
-        }else if (DownloadInfo.DOWNLOAD_WAIT.equals(info.getDownloadStatus())){
+            mAdapter.updateProgress(info);
+        }else if (DownloadInfo.DOWNLOAD_PAUSE.equals(info.getDownloadStatus())){
+            Toast.makeText(this,"下载暂停",Toast.LENGTH_SHORT).show();
+        }else if (DownloadInfo.DOWNLOAD_CANCEL.equals(info.getDownloadStatus())){
+            mAdapter.updateProgress(info);
             Toast.makeText(this,"下载取消",Toast.LENGTH_SHORT).show();
         }else if (DownloadInfo.DOWNLOAD_ERROR.equals(info.getDownloadStatus())){
             Toast.makeText(this,"下载出错",Toast.LENGTH_SHORT).show();

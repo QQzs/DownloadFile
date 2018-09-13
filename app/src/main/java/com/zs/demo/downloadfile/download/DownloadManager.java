@@ -2,6 +2,8 @@ package com.zs.demo.downloadfile.download;
 
 import com.zs.demo.downloadfile.Constant;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -105,12 +107,24 @@ public class DownloadManager {
      * 下载取消或者暂停
      * @param url
      */
-    public void cancel(String url) {
+    public void pauseDownload(String url) {
         Call call = downCalls.get(url);
         if (call != null) {
             call.cancel();//取消
         }
         downCalls.remove(url);
+    }
+
+    /**
+     * 取消下载 删除本地文件
+     * @param info
+     */
+    public void cancelDownload(DownloadInfo info){
+        pauseDownload(info.getUrl());
+        info.setProgress(0);
+        info.setDownloadStatus(DownloadInfo.DOWNLOAD_CANCEL);
+        EventBus.getDefault().post(info);
+        Constant.deleteFile(info.getFileName());
     }
 
     /**

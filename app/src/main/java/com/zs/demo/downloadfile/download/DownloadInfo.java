@@ -7,14 +7,15 @@ package com.zs.demo.downloadfile.download;
 public class DownloadInfo {
     public static final long TOTAL_ERROR = -1;//获取进度失败
 
-    public static final String DOWNLOAD_WAIT = "wait";
     public static final String DOWNLOAD = "download";
+    public static final String DOWNLOAD_PAUSE = "pause";
+    public static final String DOWNLOAD_CANCEL = "cancel";
     public static final String DOWNLOAD_OVER = "over";
     public static final String DOWNLOAD_ERROR = "error";
 
     private String url;
     private String fileName;
-    private String downloadStatus = DOWNLOAD_WAIT;
+    private String downloadStatus;
     private long total;
     private long progress;
 
