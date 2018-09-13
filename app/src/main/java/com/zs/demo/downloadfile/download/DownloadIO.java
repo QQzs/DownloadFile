@@ -4,9 +4,13 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * Created by xiaobai on 2018/3/30/030.
+ * Created by zs
+ * Date：2018年 09月 12日
+ * Time：14:26
+ * —————————————————————————————————————
+ * About:
+ * —————————————————————————————————————
  */
-
 public class DownloadIO {
     public static void closeAll(Closeable... closeables){
         if(closeables == null){

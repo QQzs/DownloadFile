@@ -1,17 +1,25 @@
 package com.zs.demo.downloadfile.download;
 
 /**
- * Created by xiaobai on 2018/3/30/030.
+ * Created by zs
+ * Date：2018年 09月 12日
+ * Time：13:50
+ * —————————————————————————————————————
+ * About: 下载管理
+ * —————————————————————————————————————
  */
-
 public class DownloadInfo {
-    public static final long TOTAL_ERROR = -1;//获取进度失败
 
+    /**
+     * 下载状态
+     */
     public static final String DOWNLOAD = "download";
     public static final String DOWNLOAD_PAUSE = "pause";
     public static final String DOWNLOAD_CANCEL = "cancel";
     public static final String DOWNLOAD_OVER = "over";
     public static final String DOWNLOAD_ERROR = "error";
+
+    public static final long TOTAL_ERROR = -1;//获取进度失败
 
     private String url;
     private String fileName;

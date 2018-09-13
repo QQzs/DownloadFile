@@ -14,10 +14,14 @@ import java.io.File;
  */
 public class Constant {
 
-    // 下载路径
+    /**
+     * 下载路径
+     */
     public final static String FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()+"/AAA/";
 
-    // 若文件下载不下来，更换网址
+    /**
+     * 若文件下载不下来，更换网址
+     */
     public final static String URL_1 = "http://files.ibaodian.com/v2/teamfile/1ca447a600580cdcb575ab9348536f38/CM10086_android_V4.8.0_20180708_A0001.apk";
     public final static String URL_2 = "http://files.ibaodian.com/v2/teamfile/f063d3c2c4a32a8143fc4f36be39cfd9/jtyh.patch";
     public final static String URL_3 = "http://files.ibaodian.com/v2/teamfile/482fd8d425d25f3c3fbdb83156a85af1/IMG_20160508_184212.jpg";
