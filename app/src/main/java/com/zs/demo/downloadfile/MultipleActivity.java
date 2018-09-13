@@ -50,7 +50,7 @@ public class MultipleActivity extends AppCompatActivity {
         mData.add(new DownloadInfo(Constant.URL_9));
 
 
-        mAdapter = new DownloadAdapter(this,mData);
+        mAdapter = new DownloadAdapter(mData);
         recycler_view.setLayoutManager(new LinearLayoutManager(this));
         recycler_view.setAdapter(mAdapter);
         // 取消item刷新的动画
@@ -61,15 +61,24 @@ public class MultipleActivity extends AppCompatActivity {
     @Subscribe (threadMode = ThreadMode.MAIN)
     public void update(DownloadInfo info){
         if (DownloadInfo.DOWNLOAD.equals(info.getDownloadStatus())){
+
             mAdapter.updateProgress(info);
+
         }else if (DownloadInfo.DOWNLOAD_OVER.equals(info.getDownloadStatus())){
+
             mAdapter.updateProgress(info);
+
         }else if (DownloadInfo.DOWNLOAD_PAUSE.equals(info.getDownloadStatus())){
+
             Toast.makeText(this,"下载暂停",Toast.LENGTH_SHORT).show();
+
         }else if (DownloadInfo.DOWNLOAD_CANCEL.equals(info.getDownloadStatus())){
+
             mAdapter.updateProgress(info);
             Toast.makeText(this,"下载取消",Toast.LENGTH_SHORT).show();
+
         }else if (DownloadInfo.DOWNLOAD_ERROR.equals(info.getDownloadStatus())){
+
             Toast.makeText(this,"下载出错",Toast.LENGTH_SHORT).show();
         }
     }

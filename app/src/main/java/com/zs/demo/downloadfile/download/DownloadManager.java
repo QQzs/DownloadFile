@@ -142,6 +142,11 @@ public class DownloadManager {
         return downloadInfo;
     }
 
+    /**
+     * 如果文件已下载重新命名新文件名
+     * @param downloadInfo
+     * @return
+     */
     private DownloadInfo getRealFileName(DownloadInfo downloadInfo) {
         String fileName = downloadInfo.getFileName();
         long downloadLength = 0, contentLength = downloadInfo.getTotal();
@@ -190,7 +195,6 @@ public class DownloadManager {
             long contentLength = downloadInfo.getTotal();//文件的总长度
             //初始进度信息
             e.onNext(downloadInfo);
-
             Request request = new Request.Builder()
                     //确定下载的范围,添加此头,则服务器就可以跳过已经下载好的部分
                     .addHeader("RANGE", "bytes=" + downloadLength + "-" + contentLength)

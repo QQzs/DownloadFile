@@ -1,6 +1,5 @@
 package com.zs.demo.downloadfile.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +23,9 @@ import java.util.List;
  */
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.UploadHolder>  {
 
-    private Context mContext;
     private List<DownloadInfo> mdata;
-    private long mTime;
 
-    public DownloadAdapter(Context mContext, List<DownloadInfo> mdata) {
-        this.mContext = mContext;
+    public DownloadAdapter(List<DownloadInfo> mdata) {
         this.mdata = mdata;
     }
 
@@ -42,11 +38,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.Upload
             if (mdata.get(i).getUrl().equals(info.getUrl())){
                 mdata.set(i,info);
                 notifyItemChanged(i);
-                // 修改刷新的时间间隔
-//                if (System.currentTimeMillis() - mTime > 1000){
-//                    mTime = System.currentTimeMillis();
-//                    notifyItemChanged(i);
-//                }
                 break;
             }
         }
@@ -66,10 +57,10 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.Upload
             holder.main_progress.setProgress(0);
         }else if (DownloadInfo.DOWNLOAD_OVER.equals(info.getDownloadStatus())){
             holder.main_progress.setProgress(holder.main_progress.getMax());
-        }else{
+        }else {
             if (info.getTotal() == 0){
                 holder.main_progress.setProgress(0);
-            }else{
+            }else {
                 float d = info.getProgress() * holder.main_progress.getMax() / info.getTotal();
                 holder.main_progress.setProgress((int) d);
             }
