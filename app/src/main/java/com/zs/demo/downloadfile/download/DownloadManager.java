@@ -74,30 +74,30 @@ public class DownloadManager {
     public void download(String url, DownloadObserver downLoadObserver) {
         
         Observable.just(url)
-                .filter(new Predicate<String>() {
+                .filter(new Predicate<String>() { // 过滤 call的map中已经有了,就证明正在下载,则这次不下载
                     @Override
                     public boolean test(String s) {
                         return !downCalls.containsKey(s);
                     }
-                }) // 过滤 call的map中已经有了,就证明正在下载,则这次不下载
-                .flatMap(new Function<String, ObservableSource<?>>() {
+                })
+                .flatMap(new Function<String, ObservableSource<?>>() { // 生成 DownloadInfo
                     @Override
                     public ObservableSource<?> apply(String s) {
                         return Observable.just(createDownInfo(s));
                     }
-                }) // 生成 DownloadInfo
-                .map(new Function<Object, DownloadInfo>() {
+                })
+                .map(new Function<Object, DownloadInfo>() { // 如果已经下载，重新命名
                     @Override
                     public DownloadInfo apply(Object o) {
                         return getRealFileName((DownloadInfo)o);
                     }
-                }) // 如果已经下载，重新命名
-                .flatMap(new Function<DownloadInfo, ObservableSource<DownloadInfo>>() {
+                })
+                .flatMap(new Function<DownloadInfo, ObservableSource<DownloadInfo>>() { // 下载
                     @Override
                     public ObservableSource<DownloadInfo> apply(DownloadInfo downloadInfo) {
                         return Observable.create(new DownloadSubscribe(downloadInfo));
                     }
-                }) // 下载
+                })
                 .observeOn(AndroidSchedulers.mainThread()) // 在主线程中回调
                 .subscribeOn(Schedulers.io()) //  在子线程中执行
                 .subscribe(downLoadObserver); //  添加观察者，监听下载进度
