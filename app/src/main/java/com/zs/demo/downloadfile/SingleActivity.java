@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.zs.demo.downloadfile.download.DownloadInfo;
 import com.zs.demo.downloadfile.download.DownloadManager;
-import com.zs.demo.downloadfile.download.DownloadObserver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,7 +44,7 @@ public class SingleActivity extends AppCompatActivity{
         main_btn_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DownloadManager.getInstance().download(Constant.URL_1, new DownloadObserver());
+                DownloadManager.getInstance().download(Constant.URL_1);
             }
         });
 

@@ -9,7 +9,6 @@ import android.widget.ProgressBar;
 import com.zs.demo.downloadfile.R;
 import com.zs.demo.downloadfile.download.DownloadInfo;
 import com.zs.demo.downloadfile.download.DownloadManager;
-import com.zs.demo.downloadfile.download.DownloadObserver;
 
 import java.util.List;
 
@@ -68,7 +67,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.Upload
         holder.main_btn_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DownloadManager.getInstance().download(info.getUrl(), new DownloadObserver());
+                DownloadManager.getInstance().download(info.getUrl());
             }
         });
 

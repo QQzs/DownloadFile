@@ -69,9 +69,8 @@ public class DownloadManager {
      * 开始下载
      *
      * @param url              下载请求的网址
-     * @param downLoadObserver 用来回调的接口
      */
-    public void download(String url, DownloadObserver downLoadObserver) {
+    public void download(String url) {
         
         Observable.just(url)
                 .filter(new Predicate<String>() { // 过滤 call的map中已经有了,就证明正在下载,则这次不下载
@@ -100,7 +99,7 @@ public class DownloadManager {
                 })
                 .observeOn(AndroidSchedulers.mainThread()) // 在主线程中回调
                 .subscribeOn(Schedulers.io()) //  在子线程中执行
-                .subscribe(downLoadObserver); //  添加观察者，监听下载进度
+                .subscribe(new DownloadObserver()); //  添加观察者，监听下载进度
     }
 
     /**
@@ -202,6 +201,7 @@ public class DownloadManager {
                     .build();
             Call call = mClient.newCall(request);
             downCalls.put(url, call);//把这个添加到call里,方便取消
+
             Response response = call.execute();
             File file = new File(Constant.FILE_PATH, downloadInfo.getFileName());
             InputStream is = null;
@@ -227,6 +227,8 @@ public class DownloadManager {
             e.onComplete();//完成
         }
     }
+
+
 
     /**
      * 获取下载长度
