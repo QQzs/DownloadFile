@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".SingleActivity"/>
         <activity android:name=".MultipleActivity"/>
+        <activity android:name=".LimitActivity"/>
     </application>
 
 </manifest>

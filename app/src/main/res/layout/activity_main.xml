@@ -21,4 +21,12 @@
         android:onClick="multipleDownload"
         android:layout_marginTop="20dp"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="限制下载个数"
+        android:onClick="limitDownload"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"/>
+
 </LinearLayout>

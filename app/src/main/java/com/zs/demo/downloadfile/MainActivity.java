@@ -22,4 +22,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MultipleActivity.class);
         startActivity(intent);
     }
+
+    public void limitDownload(View view){
+        Intent intent = new Intent(this,LimitActivity.class);
+        startActivity(intent);
+    }
 }
