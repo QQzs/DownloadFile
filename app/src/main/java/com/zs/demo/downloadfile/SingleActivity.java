@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Date：2018年 09月 12日
  * Time：17:17
  * —————————————————————————————————————
- * About:
+ * About:单个下载
  * —————————————————————————————————————
  */
 public class SingleActivity extends AppCompatActivity{

@@ -23,7 +23,7 @@ import java.util.List;
  * Date：2018年 09月 11日
  * Time：17:57
  * —————————————————————————————————————
- * About:
+ * About: 多个文件同时下载
  * —————————————————————————————————————
  */
 public class MultipleActivity extends AppCompatActivity {

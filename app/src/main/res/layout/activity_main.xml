@@ -27,6 +27,6 @@
         android:text="限制下载个数"
         android:onClick="limitDownload"
         android:layout_marginTop="20dp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
 </LinearLayout>

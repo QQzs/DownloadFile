@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.zs.demo.downloadfile.LimitActivity;
 import com.zs.demo.downloadfile.R;
 import com.zs.demo.downloadfile.download.DownloadInfo;
-import com.zs.demo.downloadfile.download.DownloadManager;
+import com.zs.demo.downloadfile.download.limit.DownloadLimitManager;
 
 import java.util.List;
 
@@ -56,36 +55,44 @@ public class LimitDownloadAdapter extends RecyclerView.Adapter<LimitDownloadAdap
     public void onBindViewHolder(UploadHolder holder, int position) {
 
         final DownloadInfo info = mdata.get(position);
-        if (DownloadInfo.DOWNLOAD_CANCEL.equals(info.getDownloadStatus())){
+        if (DownloadLimitManager.getInstance().getWaitUrl(info.getUrl())){
+            holder.main_btn_down.setText("等待");
+        }else if (DownloadInfo.DOWNLOAD_CANCEL.equals(info.getDownloadStatus())){
             holder.main_progress.setProgress(0);
+            holder.main_btn_down.setText("下载");
+        }else if (DownloadInfo.DOWNLOAD_PAUSE.equals(info.getDownloadStatus())){
+            holder.main_btn_down.setText("等待");
         }else if (DownloadInfo.DOWNLOAD_OVER.equals(info.getDownloadStatus())){
             holder.main_progress.setProgress(holder.main_progress.getMax());
+            holder.main_btn_down.setText("完成");
         }else {
             if (info.getTotal() == 0){
                 holder.main_progress.setProgress(0);
             }else {
                 float d = info.getProgress() * holder.main_progress.getMax() / info.getTotal();
                 holder.main_progress.setProgress((int) d);
+                holder.main_btn_down.setText("下载中");
             }
         }
         holder.main_btn_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((LimitActivity)mContext).download(info.getUrl());
+//                ((LimitActivity)mContext).download(info.getUrl());
+                DownloadLimitManager.getInstance().download(info.getUrl());
             }
         });
 
         holder.main_btn_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DownloadManager.getInstance().pauseDownload(info.getUrl());
+                DownloadLimitManager.getInstance().pauseDownload(info.getUrl());
             }
         });
 
         holder.main_btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DownloadManager.getInstance().cancelDownload(info);
+                DownloadLimitManager.getInstance().cancelDownload(info);
             }
         });
     }

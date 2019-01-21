@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.zs.demo.downloadfile.adapter.LimitDownloadAdapter;
 import com.zs.demo.downloadfile.download.DownloadInfo;
-import com.zs.demo.downloadfile.download.DownloadManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,7 +25,7 @@ import java.util.concurrent.Executors;
  * Date：2018年 09月 11日
  * Time：17:57
  * —————————————————————————————————————
- * About:
+ * About: 限制同时下载文件的最大个数
  * —————————————————————————————————————
  */
 public class LimitActivity extends AppCompatActivity {
@@ -67,16 +66,6 @@ public class LimitActivity extends AppCompatActivity {
 
     }
 
-    public void download(final String url){
-        mLimitThreadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                DownloadManager.getInstance().download(url);
-            }
-        });
-    }
-
-
     @Subscribe (threadMode = ThreadMode.MAIN)
     public void update(DownloadInfo info){
         if (DownloadInfo.DOWNLOAD.equals(info.getDownloadStatus())){
@@ -88,13 +77,18 @@ public class LimitActivity extends AppCompatActivity {
             mAdapter.updateProgress(info);
 
         }else if (DownloadInfo.DOWNLOAD_PAUSE.equals(info.getDownloadStatus())){
-
+            mAdapter.updateProgress(info);
             Toast.makeText(this,"下载暂停",Toast.LENGTH_SHORT).show();
 
         }else if (DownloadInfo.DOWNLOAD_CANCEL.equals(info.getDownloadStatus())){
 
             mAdapter.updateProgress(info);
             Toast.makeText(this,"下载取消",Toast.LENGTH_SHORT).show();
+
+        }else if (DownloadInfo.DOWNLOAD_WAIT.equals(info.getDownloadStatus())){
+
+            mAdapter.updateProgress(info);
+            Toast.makeText(this,"等待下载",Toast.LENGTH_SHORT).show();
 
         }else if (DownloadInfo.DOWNLOAD_ERROR.equals(info.getDownloadStatus())){
 
