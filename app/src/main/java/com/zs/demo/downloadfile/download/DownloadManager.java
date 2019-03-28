@@ -79,10 +79,10 @@ public class DownloadManager {
                         return !downCalls.containsKey(s);
                     }
                 })
-                .flatMap(new Function<String, ObservableSource<?>>() { // 生成 DownloadInfo
+                .map(new Function<String, DownloadInfo>() { // 生成 DownloadInfo
                     @Override
-                    public ObservableSource<?> apply(String s) {
-                        return Observable.just(createDownInfo(s));
+                    public DownloadInfo apply(String s) {
+                        return createDownInfo(s);
                     }
                 })
                 .map(new Function<Object, DownloadInfo>() { // 如果已经下载，重新命名
